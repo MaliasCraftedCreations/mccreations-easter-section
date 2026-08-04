@@ -265,13 +265,10 @@
 
   /* Swatch dots overlaid on thumbnail for quick color browsing */
   .swatchRow{
-    position:absolute;
-    bottom:6px;
-    left:0;
-    right:0;
     display:flex;
     justify-content:center;
     gap:5px;
+    padding:8px 0 2px;
   }
   .swatch-dot{
     width:16px;
@@ -769,7 +766,25 @@ function renderGrid(){
     img.onload = sendResize;
     imgWrap.appendChild(img);
 
-    // swatch dots (Option A — quick color preview without opening detail)
+   imgWrap.onclick = () => openDetail(d.id);
+    
+    // Quick-add "+" — only shown for designs with no color/size choices to
+    // make, so a customer can add them straight from the grid.
+    if (d.colors.length === 0 && d.sizes.length === 0){
+      const quickAdd = document.createElement("button");
+      quickAdd.className = "quickAddBtn";
+      quickAdd.textContent = "+";
+      quickAdd.title = "Add to order";
+      quickAdd.onclick = (e) => {
+        e.stopPropagation();
+        addToCart({ id: d.id, label: d.label, colorName: null, sizeName: null });
+      };
+      imgWrap.appendChild(quickAdd);
+    }
+
+   card.appendChild(imgWrap);
+
+    // swatch dots (Option A) — now sits below the image, above the title
     if (d.colors.length > 1){
       const row = document.createElement("div");
       row.className = "swatchRow";
@@ -786,26 +801,8 @@ function renderGrid(){
         };
         row.appendChild(dot);
       });
-      imgWrap.appendChild(row);
+      card.appendChild(row);
     }
-
-    imgWrap.onclick = () => openDetail(d.id);
-
-    // Quick-add "+" — only shown for designs with no color/size choices to
-    // make, so a customer can add them straight from the grid.
-    if (d.colors.length === 0 && d.sizes.length === 0){
-      const quickAdd = document.createElement("button");
-      quickAdd.className = "quickAddBtn";
-      quickAdd.textContent = "+";
-      quickAdd.title = "Add to order";
-      quickAdd.onclick = (e) => {
-        e.stopPropagation();
-        addToCart({ id: d.id, label: d.label, colorName: null, sizeName: null });
-      };
-      imgWrap.appendChild(quickAdd);
-    }
-
-    card.appendChild(imgWrap);
 
     const label = document.createElement("div");
     label.className = "card-label";
