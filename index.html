@@ -186,7 +186,21 @@
   /* ============================================================
      FILTER CHIPS  (tag-based filtering, independent of tabs)
      ============================================================ */
-.filterLabel{
+.searchInput{
+    display:block;
+    width:100%;
+    max-width:420px;
+    margin:0 auto 16px;
+    padding:10px 14px;
+    border-radius:16px;
+    border:1.5px solid var(--line);
+    font-size:14px;
+    font-family:Arial, sans-serif;
+    color:var(--brown);
+    background:var(--white);
+  }
+  
+  .filterLabel{
     text-align:center;
     font-size:12px;
     font-weight:700;
@@ -494,8 +508,11 @@
   <p class="pageSub">Add designs to your order as you browse, then send it all in one message</p>
 
   <div class="topControls" id="topControls">
+    
+   <input type="text" id="searchInput" class="searchInput" placeholder="🔍 Search by name (e.g. 'Bunny' or 'He Is Risen')">
+
     <!-- SUB-CATEGORY TABS -->
-     <p class="filterLabel">Filters:</p>
+    <p class="filterLabel">Filters:</p>
     <div class="tabs" id="tabs"></div>
   <!-- FILTER CHIPS -->
     <div class="filters" id="filters"></div>
@@ -667,13 +684,14 @@ const DESIGNS = [
    STATE
    ================================================================ */
 let state = {
-  subcategory: "all",   // "all" | "general" | "religious"
-  activeFilters: [],    // array of tag strings
+  subcategory: "all",
+  activeFilters: [],
   page: 1,
   perPage: 6,
   currentDesign: null,
   selectedColorIndex: 0,
-  selectedSizeIndex: null
+  selectedSizeIndex: null,
+  searchTerm: ""
 };
 
 // The running order — each entry is { id, label, colorName, sizeName }
@@ -717,7 +735,9 @@ function getFilteredDesigns(){
     const subOk = state.subcategory === "all" || d.subcategory === state.subcategory;
     const tagOk = state.activeFilters.length === 0 ||
                   state.activeFilters.every(f => d.tags.includes(f));
-    return subOk && tagOk;
+    const searchOk = state.searchTerm === "" ||
+                  d.label.toLowerCase().includes(state.searchTerm.toLowerCase());
+    return subOk && tagOk && searchOk;
   });
 }
 
@@ -1100,6 +1120,7 @@ document.getElementById("cartCopyBtn").onclick = () => {
    MASTER RENDER
    ================================================================ */
 function renderAll(){
+  document.getElementById("searchInput").value = state.searchTerm;
   renderTabs();
   renderFilters();
   renderGrid();
@@ -1141,6 +1162,12 @@ function init(){
     openDetail(hashId);
   }
 }
+document.getElementById("searchInput").addEventListener("input", (e) => {
+  state.searchTerm = e.target.value;
+  state.page = 1;
+  renderGrid();
+});
+
 init();
 
 </script>
