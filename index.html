@@ -186,6 +186,14 @@
   /* ============================================================
      FILTER CHIPS  (tag-based filtering, independent of tabs)
      ============================================================ */
+.filterLabel{
+    text-align:center;
+    font-size:12px;
+    font-weight:700;
+    color:var(--brown);
+    margin:0 0 6px;
+  }
+
   .filters{
     display:flex;
     justify-content:center;
@@ -193,6 +201,7 @@
     flex-wrap:wrap;
     margin-bottom:26px;
   }
+  
   .filter-chip{
     border:none;
     background:transparent;
@@ -487,7 +496,8 @@
   <div class="topControls" id="topControls">
     <!-- SUB-CATEGORY TABS -->
     <div class="tabs" id="tabs"></div>
-    <!-- FILTER CHIPS -->
+  <!-- FILTER CHIPS -->
+    <p class="filterLabel">Filters:</p>
     <div class="filters" id="filters"></div>
   </div>
 
