@@ -243,7 +243,7 @@
   }
  @media (max-width:700px){
     .grid{ grid-template-columns: repeat(2, 1fr); gap:12px; }
-    .card-label{ font-size:13px; padding:8px 6px 10px; }
+    .card-label{ font-size:10px; padding:8px 6px 10px; }
   }
   
   .card{
@@ -366,7 +366,7 @@
     flex:1 1 320px;
     max-width:420px;
   }
-  .detail-imgCol img{
+  .detail-imgCol > img{
     width:100%;
     border-radius:16px;
     display:block;
@@ -623,11 +623,15 @@
    ================================================================ */
 
 const DESIGNS = [
+ 
+  /* ================================================================
+  GENERAL SPRING & EASTER 
+   ================================================================ */
   {
     id: "EAS-G01",
     label: "Every Bunny Welcome",
     subcategory: "general",
-    tags: ["bunny","spring"],
+    tags: ["Bunny"],
     image: "https://img1.wsimg.com/isteam/ip/e57bea54-8b62-483e-b4f4-30ae2f7988e3/Everybunny%20Welcome%20White.JPG/:/rs=w:740,cg:true,m",
     colors: [
       { name: "Natural",  image: "https://img1.wsimg.com/isteam/ip/e57bea54-8b62-483e-b4f4-30ae2f7988e3/Everybunny%20Welcome%20White.JPG/:/rs=w:740,cg:true,m", swatch: "#c88951" },
@@ -637,52 +641,68 @@ const DESIGNS = [
   },
   {
     id: "EAS-G02",
-    label: "Carrot",
+    label: "Boy Bunny Egg",
     subcategory: "general",
-    tags: ["carrot","spring"],
-    image: "URL_5",
+    tags: ["Bunny","Egg"],
+    image: "https://img1.wsimg.com/isteam/ip/e57bea54-8b62-483e-b4f4-30ae2f7988e3/Boy%20Bunny.JPG/:/rs=w:740,cg:true,m",
     colors: [],
-    sizes: [ { name: "15\" (Small)" }, { name: "22\" (Large)" } ]
+    sizes: [ { name: "22\" (Large)" } ]
   },
   {
     id: "EAS-G03",
-    label: "Peep Trio",
+    label: "Happy Easter",
     subcategory: "general",
-    tags: ["peeps","pastel"],
-    image: "URL_6",
-    colors: [
-      { name: "Pastel Mix", image: "URL_7", swatch: "#f7c9d9" },
-      { name: "Yellow Mix", image: "URL_8", swatch: "#f2e6a3" }
-    ],
-    sizes: []
+    tags: ["Bunny","Simple"],
+    image: "https://img1.wsimg.com/isteam/ip/e57bea54-8b62-483e-b4f4-30ae2f7988e3/Easter%20Bunny%20Silhouette.JPG/:/rs=w:740,cg:true,m",
+    colors: [],
+    sizes: [ { name: "22\" (Large)" } ]
   },
   {
     id: "EAS-G04",
-    label: "Egg Hunt Basket",
+    label: "Happy Easter Lily Bunny",
     subcategory: "general",
-    tags: ["eggs","basket"],
-    image: "URL_9",
+    tags: ["Bunny","Flower"],
+    image: "https://img1.wsimg.com/isteam/ip/e57bea54-8b62-483e-b4f4-30ae2f7988e3/Lily%20Bunny-0c2ec4d.JPG/:/rs=w:740,cg:true,m",
     colors: [],
-    sizes: [ { name: "15\" (Small)" }, { name: "22\" (Large)" } ]
+    sizes: [ { name: "22\" (Large)" } ]
   },
   {
     id: "EAS-G05",
-    label: "Bunny Silhouette",
+    label: "Happy Easter Gnome",
     subcategory: "general",
-    tags: ["bunny"],
-    image: "URL_10",
-    colors: [
-      { name: "Sage",   image: "URL_11", swatch: "#b6c4a3" },
-      { name: "Blush",  image: "URL_12", swatch: "#e2c2b3" },
-      { name: "Natural",image: "URL_13", swatch: "#d8c3a3" }
-    ],
-    sizes: []
+    tags: ["Bunny","Gnome"],
+    image: "https://img1.wsimg.com/isteam/ip/e57bea54-8b62-483e-b4f4-30ae2f7988e3/Easter%20Gnome.JPG/:/rs=w:740,cg:true,m",
+    colors: [],
+    sizes: [ { name: "22\" (Large)" } ]
   },
+   {
+    id: "EAS-G05",
+    label: "Welcome To The Peep Show",
+    subcategory: "general",
+    tags: ["Chick","Egg"],
+    image: "https://img1.wsimg.com/isteam/ip/e57bea54-8b62-483e-b4f4-30ae2f7988e3/Peep%20Show.JPG/:/rs=w:740,cg:true,m",
+    colors: [],
+    sizes: [ { name: "22\" (Large)" } ]
+  },
+  {
+    id: "EAS-G05",
+    label: "Welcome Easter Eggs",
+    subcategory: "general",
+    tags: ["Egg"],
+    image: "https://img1.wsimg.com/isteam/ip/e57bea54-8b62-483e-b4f4-30ae2f7988e3/Welcome%20Egg.JPG/:/rs=w:740,cg:true,m",
+    colors: [],
+    sizes: [ { name: "22\" (Large)" } ]
+  },
+  
+/* ================================================================
+  RELIGIOUS 
+   ================================================================ */
+  
   {
     id: "EAS-R01",
     label: "Easter Cross",
     subcategory: "religious",
-    tags: ["cross"],
+    tags: ["Cross"],
     image: "URL_14",
     colors: [
       { name: "Natural Wood", image: "URL_15", swatch: "#c9a878" },
@@ -692,20 +712,20 @@ const DESIGNS = [
   },
   {
     id: "EAS-R02",
-    label: "He Is Risen",
+    label: "He Is Risen Boho",
     subcategory: "religious",
-    tags: ["scripture","cross"],
+    tags: ["Cross"],
     image: "https://img1.wsimg.com/isteam/ip/e57bea54-8b62-483e-b4f4-30ae2f7988e3/Risen%20Boho.JPG/:/rs=w:740,cg:true,m",
     photos: ["https://img1.wsimg.com/isteam/ip/e57bea54-8b62-483e-b4f4-30ae2f7988e3/Risen%20Boho.JPG/:/rs=w:740,cg:true,m", "https://img1.wsimg.com/isteam/ip/e57bea54-8b62-483e-b4f4-30ae2f7988e3/Risen%20Boho.JPG/:/rs=w:740,cg:true,m"],
     description: "He is Risen sign",
     colors: [],
-    sizes: [ { name: "15\" (Small)" }, { name: "22\" (Large)" } ]
+    sizes: [ { name: "22\" (Large)" } ]
   },
   {
     id: "EAS-R03",
     label: "Empty Tomb",
     subcategory: "religious",
-    tags: ["scripture"],
+    tags: ["Cross"],
     image: "URL_18",
     colors: [
       { name: "Natural Wood", image: "URL_19", swatch: "#c9a878" },
