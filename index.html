@@ -372,15 +372,17 @@
     display:block;
     background:var(--cream);
   }
-  .thumbRow{
+.thumbRow{
     display:flex;
+    flex-direction:row;
     gap:8px;
     margin-top:10px;
     flex-wrap:wrap;
   }
- .thumbImg{
+  .thumbImg{
     width:56px;
     height:56px;
+    flex-shrink:0;
     object-fit:contain;
     background:var(--cream);
     border-radius:8px;
@@ -694,7 +696,7 @@ const DESIGNS = [
     subcategory: "religious",
     tags: ["scripture","cross"],
     image: "https://img1.wsimg.com/isteam/ip/e57bea54-8b62-483e-b4f4-30ae2f7988e3/Risen%20Boho.JPG/:/rs=w:740,cg:true,m",
-    photos: ["URL_1b", "URL_1c"],
+    photos: ["https://img1.wsimg.com/isteam/ip/e57bea54-8b62-483e-b4f4-30ae2f7988e3/Risen%20Boho.JPG/:/rs=w:740,cg:true,m", "https://img1.wsimg.com/isteam/ip/e57bea54-8b62-483e-b4f4-30ae2f7988e3/Risen%20Boho.JPG/:/rs=w:740,cg:true,m"],
     description: "He is Risen sign",
     colors: [],
     sizes: [ { name: "15\" (Small)" }, { name: "22\" (Large)" } ]
