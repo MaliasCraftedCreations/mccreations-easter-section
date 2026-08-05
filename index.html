@@ -378,10 +378,11 @@
     margin-top:10px;
     flex-wrap:wrap;
   }
-  .thumbImg{
+ .thumbImg{
     width:56px;
     height:56px;
-    object-fit:cover;
+    object-fit:contain;
+    background:var(--cream);
     border-radius:8px;
     cursor:pointer;
     border:2px solid var(--line);
@@ -562,7 +563,6 @@
       <div class="detail-infoCol">
         <div class="detail-title" id="detailTitle"></div>
         <div class="detail-ref" id="detailRef"></div>
-        <div class="descBox" id="descBox" style="display:none;"></div>
 
         <div class="accordion" id="colorAccordion" style="display:none;">
           <div class="accordion-head" id="colorAccHead">
@@ -579,6 +579,8 @@
           </div>
           <div class="accordion-body" id="sizeAccBody"></div>
         </div>
+
+      <div class="descBox" id="descBox" style="display:none;"></div>
 
         <button class="requestBtn" id="requestBtn">➕ Add to Order</button>
         <p style="text-align:center;font-size:12px;color:var(--terracotta);margin:8px 0 0;">
