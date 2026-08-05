@@ -372,6 +372,32 @@
     display:block;
     background:var(--cream);
   }
+  .thumbRow{
+    display:flex;
+    gap:8px;
+    margin-top:10px;
+    flex-wrap:wrap;
+  }
+  .thumbImg{
+    width:56px;
+    height:56px;
+    object-fit:cover;
+    border-radius:8px;
+    cursor:pointer;
+    border:2px solid var(--line);
+  }
+  .thumbImg.active-thumb{
+    border-color:var(--terracotta);
+  }
+  .descBox{
+    background:var(--cream);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:12px 14px;
+    font-size:13px;
+    line-height:1.5;
+    margin-bottom:14px;
+  }
   .detail-infoCol{
     flex:1 1 320px;
   }
@@ -529,12 +555,14 @@
   <div class="detailView" id="detailView">
     <button class="backBtn" id="backBtn">&larr; Back to gallery</button>
     <div class="detail-layout">
-      <div class="detail-imgCol">
+     <div class="detail-imgCol">
         <img id="detailImg" src="" alt="">
+        <div class="thumbRow" id="thumbRow" style="display:none;"></div>
       </div>
       <div class="detail-infoCol">
         <div class="detail-title" id="detailTitle"></div>
         <div class="detail-ref" id="detailRef"></div>
+        <div class="descBox" id="descBox" style="display:none;"></div>
 
         <div class="accordion" id="colorAccordion" style="display:none;">
           <div class="accordion-head" id="colorAccHead">
@@ -664,6 +692,8 @@ const DESIGNS = [
     subcategory: "religious",
     tags: ["scripture","cross"],
     image: "https://img1.wsimg.com/isteam/ip/e57bea54-8b62-483e-b4f4-30ae2f7988e3/Risen%20Boho.JPG/:/rs=w:740,cg:true,m",
+    photos: ["URL_1b", "URL_1c"],
+    description: "He is Risen sign",
     colors: [],
     sizes: [ { name: "15\" (Small)" }, { name: "22\" (Large)" } ]
   },
@@ -936,6 +966,35 @@ function renderDetail(){
 
   document.getElementById("detailTitle").textContent = d.label;
   document.getElementById("detailRef").textContent = "Reference: " + d.id;
+  const descBox = document.getElementById("descBox");
+  if (d.description && d.description.trim() !== ""){
+    descBox.style.display = "block";
+    descBox.textContent = d.description;
+  } else {
+    descBox.style.display = "none";
+  }
+
+  const thumbRow = document.getElementById("thumbRow");
+  const mainSrc = img.src;
+  const extraPhotos = d.photos || [];
+  const allThumbs = [mainSrc].concat(extraPhotos);
+  if (allThumbs.length > 1){
+    thumbRow.style.display = "flex";
+    thumbRow.innerHTML = "";
+    allThumbs.forEach((src, i) => {
+      const t = document.createElement("img");
+      t.src = src;
+      t.className = "thumbImg" + (i === 0 ? " active-thumb" : "");
+      t.onclick = () => {
+        img.src = src;
+        thumbRow.querySelectorAll(".thumbImg").forEach(x => x.classList.remove("active-thumb"));
+        t.classList.add("active-thumb");
+      };
+      thumbRow.appendChild(t);
+    });
+  } else {
+    thumbRow.style.display = "none";
+  }
 
   // COLOR ACCORDION
   const colorAcc = document.getElementById("colorAccordion");
