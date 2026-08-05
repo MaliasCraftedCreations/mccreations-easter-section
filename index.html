@@ -667,7 +667,29 @@ let state = {
 };
 
 // The running order — each entry is { id, label, colorName, sizeName }
-let cart = [];
+// This key must be spelled EXACTLY the same on every season's file — it's
+// what makes them all share one cart instead of each having their own.
+const CART_KEY = "mccreations_cart";
+
+function loadCart(){
+  try {
+    const saved = localStorage.getItem(CART_KEY);
+    return saved ? JSON.parse(saved) : [];
+  } catch (e){
+    return [];
+  }
+}
+
+function saveCart(){
+  try {
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  } catch (e){
+    // if storage isn't available for some reason, cart just won't persist —
+    // won't crash the page
+  }
+}
+
+let cart = loadCart();
 
 const PAGE = window.location.origin + window.location.pathname;
 
@@ -965,14 +987,28 @@ function showToast(text){
    message per design.
    ================================================================ */
 function addToCart(item){
+  item.page = window.location.origin + window.location.pathname;
   cart.push(item);
+  saveCart();
   renderCart();
   showToast("Added " + item.label + " to your order 🛒");
   sendResize();
 }
 
+  function goToCartItem(item){
+  document.getElementById("cartBox").classList.remove("open");
+  if (findDesign(item.id)){
+    // it's on this page — jump straight to it
+    openDetail(item.id);
+  } else {
+    // it's on a different season's page — navigate there
+    window.location.href = item.page + "#" + item.id;
+  }
+}
+  
 function removeFromCart(index){
   cart.splice(index, 1);
+  saveCart();
   renderCart();
   sendResize();
 }
@@ -1006,8 +1042,12 @@ function renderCart(){
       if (item.colorName) detail += " — " + item.colorName;
       if (item.sizeName) detail += " — " + item.sizeName;
 
-      const textSpan = document.createElement("span");
+     const textSpan = document.createElement("span");
       textSpan.textContent = detail;
+      textSpan.style.cursor = "pointer";
+      textSpan.style.textDecoration = "underline";
+      textSpan.style.textDecorationStyle = "dotted";
+      textSpan.onclick = () => goToCartItem(item);
 
       const removeBtn = document.createElement("button");
       removeBtn.className = "cartItem-remove";
